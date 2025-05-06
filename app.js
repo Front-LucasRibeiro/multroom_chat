@@ -1,15 +1,24 @@
+const http = require('http');
 var app = require('./config/server');
+const Mensagem = require('./app/models/Mensagem');
+const socketIo = require('socket.io');
+
+// Criar o servidor HTTP
+var server = http.createServer(app);
+
+// Inicializar o Socket.IO com CORS
+const io = socketIo(server, {
+  cors: {
+    origin: '*', // Permite todas as origens; ajuste conforme necessário
+    methods: ['GET', 'POST'],
+  },
+});
+
+app.set('io', io);
 
 var server = app.listen(80, function () {
   console.log('servidor online');
 })
-
-const Mensagem = require('./app/models/Mensagem');
-
-// recebendo requições no socket 
-var io = require('socket.io').listen(server);
-
-app.set('io', io);
 
 // criando conexao por websocket 
 io.on('connection', async function (socket) {

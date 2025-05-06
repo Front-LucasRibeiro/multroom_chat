@@ -3,6 +3,7 @@ const express = require('express');
 const consign = require('consign');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
+const cors = require('cors');
 require('./database');
 
 var app = express();
@@ -11,7 +12,6 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'app/views');
 
-const cors = require('cors');
 app.use(cors());
 
 // Middleware
