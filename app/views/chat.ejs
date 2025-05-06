@@ -75,10 +75,17 @@
 		<div class="row conversa" id="conversa">
 			<div class="col-md-1"></div>
 			<div class="col-md-10" id="dialogos">
+				<% if (historico && historico.length) { %>
+					<% historico.forEach(function(msg) { %>
+					<div class="dialogo">
+						<h4><%= msg.apelido %></h4>
+						<p><%= msg.mensagem %></p>
+					</div>
+					<% }); %>
+				<% } %>
+				</div>
 
-
-
-			</div>
+			  
 			<div class="col-md-1"></div>
 
 		</div>
@@ -116,6 +123,19 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io('http://localhost');
+
+		// Receber o histórico de mensagens
+		socket.on('historicoParaCliente', function (mensagens) {
+		mensagens.forEach(function (msg) {
+			var html = `<div class="dialogo">
+						<h4>${msg.apelido}</h4>
+						<p>${msg.mensagem}</p>
+						</div>`;
+			$('#dialogos').append(html);
+		});
+		window.scrollTo(0, document.body.scrollHeight); // Rolagem para o fim
+		});
+
 
 		// enviado mensagem para servidor 
 		$('#enviar_mensagem').click(function () {
