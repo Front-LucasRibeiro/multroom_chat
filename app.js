@@ -16,7 +16,7 @@ const io = socketIo(server, {
 
 app.set('io', io);
 
-var server = app.listen(80, function () {
+server.listen(5000, function () {
   console.log('servidor online');
 })
 
