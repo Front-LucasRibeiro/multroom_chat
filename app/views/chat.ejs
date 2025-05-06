@@ -122,7 +122,8 @@
 		crossorigin="anonymous"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		var socket = io('http://localhost');
+		// var socket = io('http://localhost');
+		var socket = io();
 
 		// Receber o histórico de mensagens
 		socket.on('historicoParaCliente', function (mensagens) {
